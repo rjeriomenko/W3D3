@@ -50,4 +50,24 @@ class Array
     end
 end
 
+def iter_Fibonacci(n)
+    arr = [0, 1]
+    return arr[0] if n == 0
+    return arr if n == 1
+
+    while arr.length < n
+        arr << arr[-1] + arr[-2]
+    end
+
+    arr
+end
+
+def rec_Fibonacci(n)
+    return [0] if n == 1
+    return [0, 1] if n == 2
+
+    sum = rec_Fibonacci(n - 1)[-1] + rec_Fibonacci(n - 1)[-2]
+    rec_Fibonacci(n - 1) << sum
+end
+
 
