@@ -1,3 +1,5 @@
+require "byebug"
+
 def range(start, last)
     return [] if last < start
     return [start] if start == last - 1
@@ -69,5 +71,36 @@ def rec_Fibonacci(n)
     sum = rec_Fibonacci(n - 1)[-1] + rec_Fibonacci(n - 1)[-2]
     rec_Fibonacci(n - 1) << sum
 end
+
+def bsearch(arr, target)
+    return nil if arr == []
+    length = arr.length
+
+    middle_idx = length / 2 #evens will choose middle on right
+    middle_ele = arr[middle_idx]
+
+    return middle_idx if target == middle_ele
+
+    left_side = arr[...middle_idx]
+    right_side = arr[middle_idx + 1..]
+
+    if middle_ele < target
+        return nil if bsearch(right_side, target) == nil
+        middle_idx + 1 + bsearch(right_side, target)
+    else
+        return nil if bsearch(left_side, target) == nil
+        bsearch(left_side, target)
+    end
+end
+
+p bsearch([1, 2, 3], 1) # => 0
+p bsearch([2, 3, 4, 5], 3) # => 1
+p bsearch([2, 4, 6, 8, 10], 6) # => 2
+p bsearch([1, 3, 4, 5, 9], 5) # => 3
+p bsearch([1, 2, 3, 4, 5, 6], 6) # => 5
+p bsearch([1, 2, 3, 4, 5, 6], 0) # => nil
+p bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
+
+
 
 
